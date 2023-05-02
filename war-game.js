@@ -87,7 +87,6 @@ class Deck {
 class warGame {
     constructor() {
         this.gameDeck = new Deck();
-        
     }
 
     start() {
@@ -96,7 +95,7 @@ class warGame {
         const player2 = new Player('Player 2', 0);
 
         console.log('♥ ♣ ♦ ♠  A   G A M E   O F   W A R  ♥ ♣ ♦ ♠');
-        console.log(`             * Aces are lowest *`);
+        console.log(`       * ACES ARE THE LOWEST CARD *`);
 
         //shuffle the deck
         this.gameDeck.shuffleDeck();
