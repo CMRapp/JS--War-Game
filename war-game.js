@@ -24,8 +24,11 @@ class Player {
     describe() {
         if (this.hand.length != 0) {
             console.log(`${this.name}: ${this.hand[0].key} of ${this.hand[0].suit}`);
-            this.hand.shift();
         }        
+    }
+    //flip to next card in hand
+    flip() {
+        this.hand.shift();
     }
 
     //increment player's score
@@ -52,7 +55,7 @@ class Deck {
         let suit = ['♥', '♦', '♣', '♠']    
 
         //create an array of numerical card values 
-        let value = ['1', '2', '3', '4','5','6','7','8','9','10','11', '12', '13'];
+        let value = [1,2,3,4,5,6,7,8,9,10,11,12,13];
 
         //create an array of keys for translating face card values to text
         let key = ['Ace','2','3','4','5','6','7','8','9','10','Jack','Queen', 'King'];
@@ -93,7 +96,7 @@ class warGame {
         const player2 = new Player('Player 2', 0);
 
         console.log('♥ ♣ ♦ ♠  A   G A M E   O F   W A R  ♥ ♣ ♦ ♠');
-        console.log(this.displayScores(player1, player2));
+        console.log(`             * Aces are lowest *`);
 
         //shuffle the deck
         this.gameDeck.shuffleDeck();
@@ -104,19 +107,13 @@ class warGame {
         //play the game
         for(let i=0; i<26; i++){
 
-            console.log('\nROUND ' + (i+1));
-            var p1Card = player1.hand[0].value;
-            var p2Card = player2.hand[0].value;
-
-            console.log('P1 Card: ' + p1Card);
-            console.log('P2 Card: ' + p2Card);
-            
+            console.log('\nROUND ' + (i+1)); 
            //show player hands
             player1.describe();
             player2.describe();
 
             //calculate scores
-            this.calculateScore(player1, player2, p1Card, p2Card);
+            this.calculateScore(player1, player2);
 
             //display scores
             console.log(this.displayScores(player1, player2));
@@ -137,16 +134,22 @@ class warGame {
     }
 
     //compare player hands and calculate scores | Increment winning player's score | Display scores
-    calculateScore(player1, player2, p1Card, p2Card){
-        if (p1Card > p2Card) {
-            console.log(`${player1.name} wins the hand!`);
-            player1.incrementScore();
-        } else if (p1Card < p2Card){
-            console.log(`${player2.name} wins the hand!`);
-            player2.incrementScore();
-        } else {
-            console.log('The hand is a draw.')
-        }
+    calculateScore(player1, player2){
+        if (player1.hand.length >= 0){
+            if (player1.hand[0].value > player2.hand[0].value) {
+                console.log(`${player1.name} wins the hand!`);
+                player1.incrementScore();
+            } else if (player1.hand[0].value < player2.hand[0].value){
+                console.log(`${player2.name} wins the hand!`);
+                player2.incrementScore();
+            } else {
+                console.log('The hand is a draw.')
+            }
+            
+            //flip the cards after displaying the scores
+            player1.flip();
+            player2.flip();
+    }
     }
 
     displayScores(player1, player2){
@@ -155,11 +158,15 @@ class warGame {
 
     displayResults(player1, player2){
         if (player1.score > player2.score) {
-            console.log(`${player1.name} wins the game with a score of ${player1.score}!`);
+            console.log(`
+            ${player1.name} wins the game with a score of ${player1.score}!`);
         } else if (player2.score> player1.score){
-            console.log(`${player2.name} wins the game with a score of ${player2.score}!`);
+            console.log(`
+            ${player2.name} wins the game with a score of ${player2.score}!`);
         } else {
-           console.log(`Both players ended the game with a score of ${player1.score}. | This game is a Draw.`);
+           console.log(`
+           Both players ended the game with a score of ${player1.score}.
+                        This game is a Draw.`);
         }
     }
 } 
