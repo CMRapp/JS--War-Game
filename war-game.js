@@ -91,8 +91,8 @@ class warGame {
 
     start() {
         
-        const player1 = new Player('Player 1', 0);
-        const player2 = new Player('Player 2', 0);
+        const player1 = new Player('Luke', 0);
+        const player2 = new Player('Vader', 0);
 
         console.log('♥ ♣ ♦ ♠  A   G A M E   O F   W A R  ♥ ♣ ♦ ♠');
         console.log(`       * ACES ARE THE LOWEST CARD *`);
