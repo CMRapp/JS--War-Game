@@ -12,31 +12,6 @@
    When the game is finished a winner or a draw is determined.
 */
  
-// create a class for a player
-class Player {
-    constructor (name, score) {
-        this.name = name;
-        this.score = score;
-        this.hand = [];     //array to hold players hand of cards
-    }
-
-    //return player name and card and remove card from front of deck
-    describe() {
-        if (this.hand.length != 0) {
-            console.log(`${this.name}: ${this.hand[0].key} of ${this.hand[0].suit}`);
-        }        
-    }
-    //flip to next card in hand
-    flip() {
-        this.hand.shift();
-    }
-
-    //increment player's score
-    incrementScore(){
-        this.score += 1;
-    }
-}
-
 //create a class for a playing card
 class Card {
     constructor (suit, value, key){
@@ -83,7 +58,32 @@ class Deck {
     }
 }
 
+// create a class for a player
+class Player {
+    constructor (name, score) {
+        this.name = name;
+        this.score = score;
+        this.hand = [];     //array to hold players hand of cards
+    }
 
+    //return player name and card and remove card from front of deck
+    describe() {
+        if (this.hand.length != 0) {
+            console.log(`${this.name}: ${this.hand[0].key} of ${this.hand[0].suit}`);
+        }        
+    }
+    //flip to next card in hand
+    flip() {
+        this.hand.shift();
+    }
+
+    //increment player's score
+    incrementScore(){
+        this.score += 1;
+    }
+}
+
+//main class for the game | start() method runs the program
 class warGame {
     constructor() {
         this.gameDeck = new Deck();
